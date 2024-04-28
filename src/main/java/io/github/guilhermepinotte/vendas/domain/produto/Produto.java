@@ -23,6 +23,7 @@ public class Produto {
     @NotBlank
     private String descricao;
 
+    @Column(name = "preco_unitario")
     private BigDecimal precoUnitario;
 
     @Enumerated(EnumType.STRING)

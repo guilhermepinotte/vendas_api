@@ -1,6 +1,7 @@
 package io.github.guilhermepinotte.vendas.domain.cliente;
 
 import io.github.guilhermepinotte.vendas.domain.endereco.Endereco;
+import io.github.guilhermepinotte.vendas.domain.pedido.Pedido;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -9,6 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.Set;
 
 @Table(name = "clientes")
 @Entity(name = "Cliente")
@@ -34,4 +38,7 @@ public class Cliente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id")
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
+    private Set<Pedido> pedidos;
 }
