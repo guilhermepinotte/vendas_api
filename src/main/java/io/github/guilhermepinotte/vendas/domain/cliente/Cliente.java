@@ -24,12 +24,7 @@ public class Cliente {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotBlank
     private String nome;
-
-    @NotBlank
-    @Email
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -41,4 +36,11 @@ public class Cliente {
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
+
+    public Cliente (DadosCadastroCliente dados) {
+        this.nome = dados.nome();
+        this.email = dados.email();
+        this.tipo = dados.tipo();
+        this.endereco = new Endereco(dados.endereco());
+    }
 }
