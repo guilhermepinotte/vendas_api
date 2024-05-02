@@ -37,10 +37,25 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos;
 
+    private Boolean ativo;
+
     public Cliente (DadosCadastroCliente dados) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.tipo = dados.tipo();
         this.endereco = new Endereco(dados.endereco());
+        this.ativo = true;
+    }
+
+    //exclusão lógica
+    public void inativar() {
+        this.ativo = false;
+    }
+
+    public void atualizarDados(DadosAtualizacaoCliente dados) {
+        if (dados.nome() != null) this.nome = dados.nome();
+        if (dados.email() != null) this.email = dados.email();
+        if (dados.tipo() != null) this.tipo = dados.tipo();
+        if (dados.endereco() != null) this.endereco.atualizarDados(dados.endereco());
     }
 }
