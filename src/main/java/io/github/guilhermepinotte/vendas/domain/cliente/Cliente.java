@@ -52,6 +52,10 @@ public class Cliente {
         this.ativo = false;
     }
 
+    public void ativar() {
+        this.ativo = true;
+    }
+
     public void atualizarDados(DadosAtualizacaoCliente dados) {
         if (dados.nome() != null) this.nome = dados.nome();
         if (dados.email() != null) this.email = dados.email();
