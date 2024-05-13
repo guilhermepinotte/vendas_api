@@ -1,7 +1,6 @@
 package io.github.guilhermepinotte.vendas.domain.produto;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +19,6 @@ public class Produto {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
     private String descricao;
 
     @Column(name = "preco_unitario")
@@ -29,4 +27,15 @@ public class Produto {
     @Enumerated(EnumType.STRING)
     private TipoProduto tipo;
 
+    public Produto(DadosCadastroProduto dados){
+        this.descricao = dados.descricao();
+        this.precoUnitario = dados.precoUnitario();
+        this.tipo = dados.tipo();
+    }
+
+    public void atualizarDados(DadosAtualizacaoProduto dados) {
+        if (dados.descricao() != null) this.descricao = dados.descricao();
+        if (dados.precoUnitario() != null) this.precoUnitario = dados.precoUnitario();
+        if (dados.tipo() != null) this.tipo = dados.tipo();
+    }
 }

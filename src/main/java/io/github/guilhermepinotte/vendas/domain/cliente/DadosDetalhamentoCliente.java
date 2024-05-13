@@ -7,8 +7,7 @@ public record DadosDetalhamentoCliente(
     String nome,
     String email,
     TipoCliente tipo,
-    Endereco endereco
-) {
+    Endereco endereco) {
     public DadosDetalhamentoCliente(Cliente c){
         this(c.getId(),c.getNome(),c.getEmail(),c.getTipo(),c.getEndereco());
     }
