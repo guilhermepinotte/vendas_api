@@ -1,0 +1,1 @@
+alter table produtos drop index tipo;

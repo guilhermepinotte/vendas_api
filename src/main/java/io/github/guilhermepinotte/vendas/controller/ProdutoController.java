@@ -36,7 +36,7 @@ public class ProdutoController {
         return ResponseEntity.ok(new DadosDetalhamentoProduto(produto));
     }
 
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
         this.produtoRepository.delete(this.produtoRepository.getReferenceById(id));

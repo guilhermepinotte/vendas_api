@@ -1,0 +1,1 @@
+alter table produtos modify column tipo varchar(50);
