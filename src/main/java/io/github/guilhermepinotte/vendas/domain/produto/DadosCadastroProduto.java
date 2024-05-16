@@ -1,5 +1,6 @@
 package io.github.guilhermepinotte.vendas.domain.produto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;

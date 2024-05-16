@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class ProdutoPedido {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,4 +29,9 @@ public class ProdutoPedido {
 
     private Long quantidade;
 
+    public ProdutoPedido(Pedido pedido, Produto produto, DadosCadastroItensPedido dados) {
+        this.pedido = pedido;
+        this.produto = produto;
+        this.quantidade = dados.quantidade();
+    }
 }

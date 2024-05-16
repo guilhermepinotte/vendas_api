@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -38,4 +37,40 @@ public class Pedido {
 
     @OneToMany(mappedBy = "pedido",fetch = FetchType.LAZY)
     private List<ProdutoPedido> itens;
+
+    public Pedido(Cliente cliente) {
+        this.cliente = cliente;
+        this.dataPedido = LocalDateTime.now();
+//        this.total = BigDecimal.ZERO;
+    }
+
+    public void atualizaListaProdutos(List itens){
+        this.itens = itens;
+    }
+
+    public void calculaTotal() {
+        this.total = this.itens
+                        .stream()
+                        .map(i -> BigDecimal.valueOf(i.getQuantidade())
+                                                      .multiply(i.getProduto().getPrecoUnitario()))
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+//    public void calculaTotal() {
+//        this.total = this.itens
+//                .stream()
+//                .map(i ->  BigDecimal.valueOf(i.getQuantidade()).multiply(i.getProduto().getPrecoUnitario()))
+//                .sum();
+//    }
+
+//    public void calculaTotal() {
+//        var total = BigDecimal.ZERO;
+//
+//        for (ProdutoPedido item : itens) {
+//            var quantidade = BigDecimal.valueOf(item.getQuantidade());
+//            var preco = item.getProduto().getPrecoUnitario();
+//            total = total.add(quantidade.multiply(preco));
+//        }
+//        this.total = total;
+//    }
 }
