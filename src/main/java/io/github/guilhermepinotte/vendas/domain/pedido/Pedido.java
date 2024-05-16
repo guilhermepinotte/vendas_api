@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Table(name = "pedidos")
 @Entity(name = "Pedido")
@@ -49,11 +50,12 @@ public class Pedido {
     }
 
     public void calculaTotal() {
-        this.total = this.itens
-                        .stream()
-                        .map(i -> BigDecimal.valueOf(i.getQuantidade())
-                                                      .multiply(i.getProduto().getPrecoUnitario()))
-                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+        this.total =
+            this.itens.stream()
+                .map(i -> BigDecimal.valueOf(i.getQuantidade())
+                                              .multiply(i.getProduto().getPrecoUnitario()))
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
 //    public void calculaTotal() {
@@ -73,4 +75,8 @@ public class Pedido {
 //        }
 //        this.total = total;
 //    }
+
+    private BigDecimal multiplicaQuantidadePeloPreco(ProdutoPedido i) {
+        return BigDecimal.valueOf(i.getQuantidade()).multiply(i.getProduto().getPrecoUnitario());
+    }
 }
